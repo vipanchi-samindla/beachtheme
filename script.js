@@ -1033,13 +1033,12 @@ function createPathStrings(filename) {
 }
 
 function createMaterialArray(filename) {
-
-
-    let texture = new THREE.TextureLoader().load("./skybox_2_-_sunny_day_at_the_beach_anime_style.glb");
-
-    return new THREE.MeshBasicMaterial({ map: texture, side: THREE.BackSide });
-
-  return materialArray;
+  const loader = new THREE.GLTFLoader();
+  loader.load("./skybox_2_-_sunny_day_at_the_beach_anime_style.glb", (gltf) => {
+    const texture = gltf.textures[0].image;
+    const material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.BackSide });
+    return material;
+  });
 }
 
 function init() {
